@@ -2,9 +2,9 @@ replicaCount: 1
 
 image:
   repository: iamruparc/go-web-app
-  tag: v1
+  tag: 26397961425
   pullPolicy: IfNotPresent
-  tag: "v1"
+  tag: 26397961425
 
 
 ingress:
