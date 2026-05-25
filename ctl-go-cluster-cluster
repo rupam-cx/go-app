@@ -1,0 +1,84 @@
+{
+    "StackSummaries": [
+        {
+            "StackId": "arn:aws:cloudformation:ap-south-1:585853585762:stack/eksctl-go-cluster-cluster/b73530f0-5815-11f1-bc81-0aa7f3eb0ed9",
+            "StackName": "eksctl-go-cluster-cluster",
+            "TemplateDescription": "EKS cluster (dedicated VPC: true, dedicated IAM: true) [created and managed by eksctl]",
+            "CreationTime": "2026-05-25T08:42:51.673000+00:00",
+            "DeletionTime": "2026-05-25T08:43:18.069000+00:00",
+            "StackStatus": "ROLLBACK_COMPLETE",
+            "DriftInformation": {
+                "StackDriftStatus": "NOT_CHECKED"
+            },
+            "LastOperations": [
+                {
+                    "OperationType": "ROLLBACK",
+                    "OperationId": "a1535e78-aeb3-4217-88af-8d2c7a71da0d"
+                },
+                {
+                    "OperationType": "CREATE_STACK",
+                    "OperationId": "b7366970-5815-11f1-bc81-0aa7f3eb0ed9"
+                }
+            ]
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-south-1:585853585762:stack/eksctl-pritam-demo-cluster-cluster/272e97a0-501b-11f1-a3bb-0a11065c6d0f",
+            "StackName": "eksctl-pritam-demo-cluster-cluster",
+            "TemplateDescription": "EKS cluster (dedicated VPC: true, dedicated IAM: true) [created and managed by eksctl]",
+            "CreationTime": "2026-05-15T05:01:37.720000+00:00",
+            "DeletionTime": "2026-05-15T09:56:00.497000+00:00",
+            "StackStatus": "DELETE_FAILED",
+            "StackStatusReason": "The following resource(s) failed to delete: [SubnetPublicAPSOUTH1C, SubnetPublicAPSOUTH1B, SubnetPublicAPSOUTH1A, VPCGatewayAttachment]. ",
+            "DriftInformation": {
+                "StackDriftStatus": "NOT_CHECKED"
+            },
+            "LastOperations": [
+                {
+                    "OperationType": "DELETE_STACK",
+                    "OperationId": "57d34089-883e-40fa-810b-6ccf8518cb67"
+                }
+            ]
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-south-1:585853585762:stack/eksctl-my-eks-cluster-nodegroup-my-nodes/b4f1ffc0-4fa6-11f1-9217-0aeeb86979f1",
+            "StackName": "eksctl-my-eks-cluster-nodegroup-my-nodes",
+            "TemplateDescription": "EKS Managed Nodes (SSH access: false) [created by eksctl]",
+            "CreationTime": "2026-05-14T15:08:04.437000+00:00",
+            "StackStatus": "CREATE_COMPLETE",
+            "DriftInformation": {
+                "StackDriftStatus": "NOT_CHECKED"
+            },
+            "LastOperations": [
+                {
+                    "OperationType": "CREATE_STACK",
+                    "OperationId": "b4f2ea20-4fa6-11f1-9217-0aeeb86979f1"
+                }
+            ]
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-south-1:585853585762:stack/eksctl-my-eks-cluster-cluster/46a8c5e0-4fa5-11f1-aa58-0a490d397f23",
+            "StackName": "eksctl-my-eks-cluster-cluster",
+            "TemplateDescription": "EKS cluster (dedicated VPC: true, dedicated IAM: true) [created and managed by eksctl]",
+            "CreationTime": "2026-05-14T14:57:49.920000+00:00",
+            "StackStatus": "CREATE_COMPLETE",
+            "DriftInformation": {
+                "StackDriftStatus": "NOT_CHECKED"
+            },
+            "LastOperations": [
+                {
+                    "OperationType": "CREATE_STACK",
+                    "OperationId": "46aa4c80-4fa5-11f1-aa58-0a490d397f23"
+                }
+            ]
+        },
+        {
+            "StackId": "arn:aws:cloudformation:ap-south-1:585853585762:stack/CodePipelineStarterTemplate-PushToECR-Q60gg2Il/af93cba0-6d2d-11f0-bde1-0a3abc6390f1",
+            "StackName": "CodePipelineStarterTemplate-PushToECR-Q60gg2Il",
+            "CreationTime": "2025-07-30T10:12:23.576000+00:00",
+            "StackStatus": "CREATE_COMPLETE",
+            "DriftInformation": {
+                "StackDriftStatus": "NOT_CHECKED"
+            }
+        }
+    ]
+}
