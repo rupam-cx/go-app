@@ -1,0 +1,18 @@
+replicaCount: 1
+
+image:
+  repository: iamruparc/go-web-app
+  tag: v1
+  pullPolicy: IfNotPresent
+  tag: "v1"
+
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        -path: /
+        pathType: ImplementationSpecific
