@@ -71,12 +71,12 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/go-web-app:${{ github.run_id }}
+          tags: ${{ secrets.DOCKER_USERNAM
 
   update-new-tag-in-helm-chart:
     runs-on: ubuntu-latest
     needs: build-and-push-docker-image
-
+i
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -86,7 +86,7 @@ jobs:
       - name: Update Helm chart with new Docker image tag
         run: |
           NEW_TAG=${{ github.run_id }}
-          sed -i 's/tag:.*/tag: "'"$GITHUB_RUN_ID"'"/' helm/go-web-app-chart/values.yaml
+          sed -i "s/tag: .*/tag: ${NEW_TAG}/" helm/go-web-app-chart/values.yaml
 
       - name: Commit and push changes
         run: |
