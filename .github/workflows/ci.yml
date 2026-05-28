@@ -1,4 +1,3 @@
-```yaml
 name: CI-CD
 
 on:
@@ -102,4 +101,3 @@ jobs:
               "docker run -d --name go-web-app -p 80:8080 ${{ secrets.DOCKER_USERNAME }}/go-web-app:${{ github.run_id }}"
             ]' \
             --region ap-south-1
-```
