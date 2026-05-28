@@ -1,4 +1,5 @@
-name: CI
+```yaml
+name: CI-CD
 
 on:
   push:
@@ -6,7 +7,10 @@ on:
       - main
     paths-ignore:
       - 'README.md'
-      - 'helm/**'
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
 
@@ -60,43 +64,42 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/go-web-app:${{ github.run_id }}
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/go-web-app:${{ github.run_id }} .
 
-  update-new-tag-in-helm-chart:
+      - name: Push Docker Image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/go-web-app:${{ github.run_id }}
+
+  deploy:
     runs-on: ubuntu-latest
     needs: build-and-push-docker-image
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Configure AWS Credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          token: ${{ secrets.TOKEN }}
+          role-to-assume: arn:aws:iam::YOUR_ACCOUNT_ID:role/github-actions-deploy-role
+          aws-region: ap-south-1
 
-      - name: Update Helm chart with new Docker image tag
+      - name: Deploy to EC2 using SSM
         run: |
-          NEW_TAG=${{ github.run_id }}
-          sed -i 's/tag:.*/tag: "'"$GITHUB_RUN_ID"'"/' helm/go-web-app-chart/values.yaml
-
-      - name: Commit and push changes
-        run: |
-          NEW_TAG=${{ github.run_id }}
-
-          git config --global user.name "rupam-cx"
-          git config --global user.email "rupam.das@codelogicx.com"
-
-          git add helm/go-web-app-chart/values.yaml
-
-          git commit -m "Update Helm chart with new Docker image tag: ${NEW_TAG}" || echo "No changes to commit"
-
-          git push origin main
+          aws ssm send-command \
+            --instance-ids "${{ secrets.EC2_INSTANCE_ID }}" \
+            --document-name "AWS-RunShellScript" \
+            --comment "Deploy Go Web App" \
+            --parameters commands='[
+              "docker pull ${{ secrets.DOCKER_USERNAME }}/go-web-app:${{ github.run_id }}",
+              "docker stop go-web-app || true",
+              "docker rm go-web-app || true",
+              "docker run -d --name go-web-app -p 80:8080 ${{ secrets.DOCKER_USERNAME }}/go-web-app:${{ github.run_id }}"
+            ]' \
+            --region ap-south-1
+```
